@@ -25,7 +25,7 @@ RSpec.describe Addresses::Find, type: :service do
         let(:zip_code) { '12345-678' }
 
         it 'returns a error' do
-          expect(subject.call).to eq({'erro' => true})
+          expect(subject.call).to eq({ 'erro' => true })
         end
       end
     end

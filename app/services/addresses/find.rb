@@ -22,7 +22,7 @@ module Addresses
 
     def response
       @response ||= RestClient.get(url)
-    rescue StandardError => e
+    rescue StandardError
       # TODO: add error to rollbar
     end
 
