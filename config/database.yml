@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: rails_7_template_development
+  database: <%= ENV['DATABASE_DEVELOPMENT_NAME'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: rails_7_template_test
+  database: <%= ENV['DATABASE_TEST_NAME'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: rails_7_template_production
-  username: rails_7_template
-  password: <%= ENV["rails_7_template_DATABASE_PASSWORD"] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
