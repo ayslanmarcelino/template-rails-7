@@ -22,8 +22,9 @@ module Addresses
 
     def response
       @response ||= RestClient.get(url)
-    rescue StandardError
-      # TODO: add error to rollbar
+    rescue StandardError => e
+      Rollbar.error(e, 'Não foi possível consultar o endereço', request: url, zip_code: @zip_code)
+      nil
     end
 
     def url
