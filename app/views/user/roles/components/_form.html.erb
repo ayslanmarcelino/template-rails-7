@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-lg-6">
-    <%= form.label(:kind_cd) %>
-    <%= form.select(:kind_cd, User::Role::USER_ROLES, { include_blank: 'Selecione um tipo de perfil' }, class: 'form-control') %>
+    <%= form.label(:kind_cd, class: 'required-label') %>
+    <%= form.select(:kind_cd, User::Role::USER_ROLES, { include_blank: 'Selecione um tipo de perfil' }, { class: 'form-control required', required: true }) %>
   </div>
   <div class="col-lg-6">
-    <%= form.label(:user_id) %>
-    <%= form.collection_select(:user_id, @users, :id, :name, { include_blank: 'Selecione um usuário' }, { class: 'form-control' }) %>
+    <%= form.label(:user_id, class: 'required-label') %>
+    <%= form.collection_select(:user_id, @users, :id, :name, { include_blank: 'Selecione um usuário' }, { class: 'form-control required', required: true }) %>
   </div>
   <div class="col-lg-12">
-    <%= form.label(:enterprise) %>
-    <%= form.collection_select(:enterprise_id, @enterprises, :id, :formatted_name, { include_blank: 'Selecione uma empresa' }, { class: 'form-control' }) %>
+    <%= form.label(:enterprise, class: 'required-label') %>
+    <%= form.collection_select(:enterprise_id, @enterprises, :id, :formatted_name, { include_blank: 'Selecione uma empresa' }, { class: 'form-control required', required: true }) %>
   </div>
 </div>
