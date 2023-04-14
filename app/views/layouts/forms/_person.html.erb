@@ -3,12 +3,12 @@
   Dados pessoais
 </h4>
 <div class="col-lg-4">
-  <%= person_form.label(:document_number) %>
-  <%= person_form.text_field(:document_number, class: 'form-control input-cpf') %>
+  <%= person_form.label(:document_number, class: 'required-label') %>
+  <%= person_form.text_field(:document_number, class: 'form-control input-cpf required', required: true) %>
 </div>
 <div class="col-lg-4">
-  <%= person_form.label(:name) %>
-  <%= person_form.text_field(:name, class: 'form-control') %>
+  <%= person_form.label(:name, class: 'required-label') %>
+  <%= person_form.text_field(:name, class: 'form-control required', required: true) %>
 </div>
 <div class="col-lg-4">
   <%= person_form.label(:nickname) %>
