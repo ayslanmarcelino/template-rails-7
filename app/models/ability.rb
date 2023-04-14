@@ -54,13 +54,11 @@ class Ability
       can(:create, User)
       can([:read, :update, :destroy], User::Role, enterprise: @enterprise, kind_cd: User::Role::USER_KINDS.map(&:to_s))
       can(:create, User::Role, enterprise: @enterprise)
-      can(:read, Client, enterprise: @enterprise)
     end
 
     def viewer_abilities
       can(:read, User, roles: { enterprise_id: @enterprise.id, kind_cd: User::Role::USER_KINDS.map(&:to_s) })
       can(:read, User::Role, enterprise: @enterprise, kind_cd: User::Role::USER_KINDS.map(&:to_s))
-      can(:read, Client, enterprise: @enterprise)
     end
   end
 end
