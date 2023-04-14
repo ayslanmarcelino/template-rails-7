@@ -119,3 +119,18 @@ a.nav-link.info-card {
     }
   }
 }
+
+.required-empty {
+  border-color: $dark-red;
+  color: $dark-red;
+}
+
+.required-error {
+  font-size: 80%;
+  color: $dark-red;
+}
+
+label.required-label::after {
+  content: ' *';
+  color: $dark-red;
+}
