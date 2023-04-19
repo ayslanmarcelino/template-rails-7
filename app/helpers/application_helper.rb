@@ -29,4 +29,8 @@ module ApplicationHelper
       CNPJ.new(document_number).formatted
     end
   end
+
+  def not_persisted_action?
+    ['new', 'create'].include?(action_name)
+  end
 end
