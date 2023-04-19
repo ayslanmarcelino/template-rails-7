@@ -125,7 +125,7 @@ ActiveAdmin.register(Enterprise) do
     def create
       super
 
-      Users::Roles::Create.call(params: representative_params, enterprise: resource)
+      Users::Roles::Create.call(params: representative_params, enterprise: resource) if resource.persisted?
     end
 
     private
