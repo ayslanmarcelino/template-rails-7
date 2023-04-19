@@ -4,6 +4,8 @@ ActiveAdmin.register(Enterprise) do
   permit_params Enterprise.permitted_params,
                 address_attributes: Address.permitted_params
 
+  actions :index, :show, :new, :create, :edit, :update
+
   filter :email
   filter :document_number
   filter :name
