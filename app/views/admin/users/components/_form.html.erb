@@ -3,7 +3,7 @@
     <%= form.label(:email, class: 'required-label') %>
     <%= form.email_field(:email, class: 'form-control required', required: true) %>
   </div>
-  <% if action_name == 'new' %>
+  <% if not_persisted_action? %>
     <div class="col-lg-6">
       <%= form.label(:password, class: 'required-label') %>
       <%= form.password_field(:password, class: 'form-control form-control-user required', required: true) %>
