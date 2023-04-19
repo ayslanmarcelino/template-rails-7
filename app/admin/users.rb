@@ -9,6 +9,8 @@ ActiveAdmin.register(User, as: 'all_users') do
                   }
                 ]
 
+  actions :index, :show, :new, :create, :edit, :update
+
   scope('Todos', :all)
   scope('Ativos', default: true) { |user| user.where(active: true) }
   scope('Desativados') { |user| user.where(active: false) }
