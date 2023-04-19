@@ -65,6 +65,8 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :address
 
+  before_save :format_document_number
+
   def self.permitted_params
     [
       :id,
@@ -87,5 +89,9 @@ class Person < ApplicationRecord
 
   def translated_kind
     I18n.t("activerecord.attributes.person.kind_list.#{kind}")
+  end
+
+  def format_document_number
+    self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '')
   end
 end

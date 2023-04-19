@@ -47,6 +47,8 @@ class Enterprise < ApplicationRecord
 
   accepts_nested_attributes_for :address
 
+  before_save :format_document_number
+
   def self.permitted_params
     [
       :email,
@@ -68,5 +70,9 @@ class Enterprise < ApplicationRecord
 
   def formatted_name
     "#{name} | #{CNPJ.new(document_number).formatted}"
+  end
+
+  def format_document_number
+    self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '')
   end
 end
