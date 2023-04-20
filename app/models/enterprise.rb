@@ -73,6 +73,6 @@ class Enterprise < ApplicationRecord
   end
 
   def format_document_number
-    self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '')
+    self.document_number = formatted(document_number).gsub!(/[^0-9a-zA-Z]/, '')
   end
 end
