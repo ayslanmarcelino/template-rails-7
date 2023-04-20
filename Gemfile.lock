@@ -318,6 +318,7 @@ GEM
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     sanitize_email (2.0.3)
     sassc (2.4.0)
@@ -333,6 +334,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     simple_enum (2.3.2)
@@ -421,6 +424,7 @@ DEPENDENCIES
   sanitize_email
   sassc-rails
   selenium-webdriver
+  sendgrid-ruby
   shoulda-matchers
   simple_enum (~> 2.3.0)
   sprockets-rails
