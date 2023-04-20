@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: 'ayslamarcelino@gmail.com'
+  default from: ENV['SENDGRID_MAIL']
 
   def new_user
     @user = params[:user]
