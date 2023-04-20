@@ -101,7 +101,17 @@ ActiveAdmin.register(Enterprise) do
     end
 
     attributes_table(title: 'Usuários') do
-      paginated_collection(User.includes(:person).where(person: { enterprise: resource }).page(params[:page]).per(10), download_links: true) do
+      paginated_collection(
+        User.includes(:person)
+            .where(
+              person: {
+                enterprise: resource
+              }
+            )
+            .page(params[:page])
+            .per(10),
+        download_links: true
+      ) do
         table_for(collection) do
           column(:id) { |user| auto_link(user, user.id) }
           column(:name)
