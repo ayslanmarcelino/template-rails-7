@@ -320,6 +320,7 @@ GEM
     ruby2_keywords (0.0.5)
     ruby_http_client (3.5.5)
     rubyzip (2.3.2)
+    sanitize_email (2.0.3)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -420,6 +421,7 @@ DEPENDENCIES
   rubocop-performance (= 1.9.2)
   rubocop-rails (= 2.9.1)
   rubocop-rspec (= 2.2.0)
+  sanitize_email
   sassc-rails
   selenium-webdriver
   sendgrid-ruby
