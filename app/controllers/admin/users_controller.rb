@@ -44,7 +44,7 @@ module Admin
     def edit; end
 
     def update
-      if @user.update(user_params)
+      if @user.update(user_params.except(:email))
         redirect_success(path: admin_users_path, action: 'atualizado')
       else
         render(:edit, status: :unprocessable_entity)
