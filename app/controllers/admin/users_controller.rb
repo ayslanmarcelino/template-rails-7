@@ -27,7 +27,7 @@ module Admin
     end
 
     def create
-      @user = User.new(user_params)
+      @user = User.new(user_params.merge(password: user_params[:email], password_confirmation: user_params[:email]))
       @user.person.kind = :person
       @user.person.owner = @user
       @user.person.enterprise_id = current_user.current_enterprise.id
