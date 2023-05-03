@@ -36,38 +36,62 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  subject { described_class.new(document_number: document_number, name: name, owner: owner, enterprise: enterprise) }
+  subject { described_class.new(document_number: document_number, name: name, owner: owner, enterprise: enterprise, kind: kind) }
 
-  let!(:document_number) { CNPJ.generate }
+  let!(:document_number) { CPF.generate }
   let!(:name) { Faker::Name.name }
   let!(:owner) { create(:user) }
   let!(:enterprise) { create(:enterprise) }
+  let!(:kind) { :person }
 
   context 'when sucessful' do
     context 'when has person with same document_number' do
-      let!(:person) { create(:person, :person, document_number: document_number) }
+      let!(:person) { create(:person, kind, document_number: document_number) }
 
       context 'when does not have same enterprise' do
         let!(:enterprise) { create(:enterprise) }
 
-        it do
-          expect(subject).to be_valid
+        context 'when person' do
+          it do
+            expect(subject).to be_valid
+          end
+        end
+
+        context 'when company' do
+          let!(:document_number) { CNPJ.generate }
+          let!(:kind) { :company }
+
+          it do
+            expect(subject).to be_valid
+          end
         end
       end
 
       context 'when does not have same owner' do
         let!(:owner) { create(:address) }
 
-        it do
-          expect(subject).to be_valid
+        context 'when person' do
+          it do
+            expect(subject).to be_valid
+          end
+        end
+
+        context 'when company' do
+          let!(:document_number) { CNPJ.generate }
+          let!(:kind) { :company }
+
+          it do
+            expect(subject).to be_valid
+          end
         end
       end
     end
 
     context 'when does not have same document_number, same owner and same enterprise' do
-      let!(:document_number) { CNPJ.generate }
+      let!(:document_number) { CPF.generate }
       let!(:owner) { create(:address) }
       let!(:enterprise) { create(:enterprise) }
+      let!(:kind) { :person }
 
       it do
         expect(subject).to be_valid
@@ -81,25 +105,21 @@ RSpec.describe Person, type: :model do
 
       it do
         expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('CPF já está em uso')
+        expect(subject.errors.full_messages.to_sentence).to eq('CPF/CNPJ já está em uso')
       end
     end
 
-    context 'when do not pass document_number' do
-      let(:document_number) {}
+    context 'when do not pass a required attribute' do
+      [:document_number, :name].each do |attribute|
+        context "when #{attribute}" do
+          let!(attribute) {}
+          let!(:message) { "#{I18n.t("activerecord.attributes.person.#{attribute}")} não pode ficar em branco" }
 
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('CPF não pode ficar em branco')
-      end
-    end
-
-    context 'when do not pass name' do
-      let(:name) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('Nome completo não pode ficar em branco')
+          it do
+            expect(subject).not_to be_valid
+            expect(subject.errors.full_messages.to_sentence).to eq(message)
+          end
+        end
       end
     end
   end
