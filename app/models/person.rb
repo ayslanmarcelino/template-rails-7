@@ -65,7 +65,7 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :address
 
-  before_save :format_document_number
+  before_validation :format_document_number
 
   def self.permitted_params
     [
@@ -92,6 +92,12 @@ class Person < ApplicationRecord
   end
 
   def format_document_number
+    return if document_number.blank?
+
     self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '') unless document_number.match?(/\A\d+\z/)
+
+    unless (kind_person? && CPF.valid?(document_number)) || (kind_company? && CNPJ.valid?(document_number))
+      errors.add(:document_number, 'não é válido') 
+    end
   end
 end
