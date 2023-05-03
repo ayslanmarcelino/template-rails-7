@@ -37,8 +37,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  delegate :name, to: :person
-
   belongs_to :person, dependent: :destroy, optional: true
   belongs_to :current_enterprise, class_name: 'Enterprise', optional: true
 
