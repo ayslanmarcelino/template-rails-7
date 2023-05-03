@@ -1,1 +1,4 @@
 <%= "Bem-vindo(a), #{current_user.person.name}." %>
+<div>
+  <%= link_to('Gerar PDF exemplo', report_path(format: :pdf)) %>
+</div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   get 'dashboard/index'
+  get 'report', to: 'dashboard#pdf'
 
   resources :enterprises, only: [:index, :show, :new, :create, :edit, :update] do
     member do
