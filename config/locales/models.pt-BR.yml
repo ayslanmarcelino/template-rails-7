@@ -30,7 +30,7 @@ pt-BR:
         complement: Complemento
       person:
         id: Código
-        document_number: CPF
+        document_number: CPF/CNPJ
         owner: Tipo
         owner_type: Tipo
         owner_id: ID do tipo
