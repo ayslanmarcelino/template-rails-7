@@ -70,8 +70,19 @@ RSpec.describe Person, type: :model do
       context 'when does not have same owner' do
         let!(:owner) { create(:address) }
 
-        it do
-          expect(subject).to be_valid
+        context 'when person' do
+          it do
+            expect(subject).to be_valid
+          end
+        end
+
+        context 'when company' do
+          let!(:document_number) { CNPJ.generate }
+          let!(:kind) { :company }
+
+          it do
+            expect(subject).to be_valid
+          end
         end
       end
     end
