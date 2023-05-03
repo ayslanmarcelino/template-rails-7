@@ -96,8 +96,10 @@ class Person < ApplicationRecord
 
     self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '') unless document_number.match?(/\A\d+\z/)
 
-    unless (kind_person? && CPF.valid?(document_number)) || (kind_company? && CNPJ.valid?(document_number))
-      errors.add(:document_number, 'não é válido') 
+    if kind_person?
+      errors.add(:document_number, 'não é válido') unless CPF.valid?(document_number)
+    elsif kind_company?
+      errors.add(:document_number, 'não é válido') unless CNPJ.valid?(document_number)
     end
   end
 end
