@@ -100,7 +100,6 @@ RSpec.describe Person, type: :model do
 
     context 'when do not pass a required attribute' do
       [:document_number, :name].each do |attribute|
-        
         context "when #{attribute}" do
           let!(attribute) {}
           let!(:message) { "#{I18n.t("activerecord.attributes.person.#{attribute}")} não pode ficar em branco" }
