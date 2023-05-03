@@ -6,7 +6,7 @@ class Ability
     return unless user
 
     @user = user
-    @user.roles.each do |role|
+    @user.roles.includes(:enterprise).find_each do |role|
       next unless user.current_enterprise == role.enterprise
 
       PerEnterpriseAbility.new(self, enterprise: @user.current_enterprise, user: @user).permit(role.kind)

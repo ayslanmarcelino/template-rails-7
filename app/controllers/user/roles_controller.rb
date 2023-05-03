@@ -6,8 +6,7 @@ class User::RolesController < ApplicationController
   before_action :users, only: [:new, :create, :edit]
 
   def index
-    @query = User::Role.includes(user: :person)
-                       .order(created_at: :desc)
+    @query = User::Role.order(created_at: :desc)
                        .accessible_by(current_ability)
                        .page(params[:page])
                        .ransack(params[:q])
