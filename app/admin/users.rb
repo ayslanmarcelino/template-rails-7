@@ -1,5 +1,5 @@
 ActiveAdmin.register(User, as: 'all_users') do
-  menu priority: 3
+  menu priority: 4
 
   permit_params User.permitted_params,
                 person_attributes: [

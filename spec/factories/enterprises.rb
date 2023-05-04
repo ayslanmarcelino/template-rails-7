@@ -13,7 +13,6 @@ FactoryBot.define do
     identity_document_number { FFaker.numerify('#########') }
     identity_document_type { 'rg' }
     telephone_number { FFaker.numerify('##########') }
-    created_by { create(:user) }
 
     association :address
   end
