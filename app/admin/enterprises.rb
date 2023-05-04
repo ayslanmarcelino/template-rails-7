@@ -26,6 +26,7 @@ ActiveAdmin.register(Enterprise) do
     column :trade_name
     column :opening_date
     column :active
+    column :created_by
     column :created_at
     column :updated_at
     actions
@@ -72,6 +73,7 @@ ActiveAdmin.register(Enterprise) do
       row :name
       row :trade_name
       row :opening_date
+      row :created_by
       row :created_at
       row :updated_at
     end
@@ -147,7 +149,10 @@ ActiveAdmin.register(Enterprise) do
     def create
       super
 
-      Users::Roles::Create.call(params: representative_params, enterprise: resource) if resource.persisted?
+      if resource.persisted?
+        resource.update(created_by: current_user)
+        Users::Roles::Create.call(params: representative_params, enterprise: resource)
+      end
     end
 
     private

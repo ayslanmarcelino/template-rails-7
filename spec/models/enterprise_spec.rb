@@ -20,14 +20,17 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  address_id                       :bigint
+#  created_by_id                    :bigint
 #
 # Indexes
 #
-#  index_enterprises_on_address_id  (address_id)
+#  index_enterprises_on_address_id     (address_id)
+#  index_enterprises_on_created_by_id  (created_by_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
+#  fk_rails_...  (created_by_id => users.id)
 #
 require 'rails_helper'
 
