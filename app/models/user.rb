@@ -16,11 +16,13 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  created_by_id          :bigint
 #  current_enterprise_id  :bigint
 #  person_id              :bigint
 #
 # Indexes
 #
+#  index_users_on_created_by_id          (created_by_id)
 #  index_users_on_current_enterprise_id  (current_enterprise_id)
 #  index_users_on_email                  (email) UNIQUE
 #  index_users_on_person_id              (person_id)
@@ -28,6 +30,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (created_by_id => users.id)
 #  fk_rails_...  (current_enterprise_id => enterprises.id)
 #  fk_rails_...  (person_id => people.id)
 #
@@ -39,6 +42,7 @@ class User < ApplicationRecord
 
   belongs_to :person, dependent: :destroy, optional: true
   belongs_to :current_enterprise, class_name: 'Enterprise', optional: true
+  belongs_to :created_by, class_name: 'User', optional: true
 
   has_many :roles, dependent: :destroy
 

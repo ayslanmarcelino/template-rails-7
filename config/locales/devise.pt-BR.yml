@@ -32,6 +32,7 @@ pt-BR:
         person: Pessoa
         enterprise: Empresa
         current_enterprise: Empresa logada
+        created_by: Criado por
     models:
       user: Usuário
       user/role: Regra de usuário

@@ -94,7 +94,8 @@ module Admin
         :password_confirmation
       ).merge(
         password: user_params[:email],
-        password_confirmation: user_params[:email]
+        password_confirmation: user_params[:email],
+        created_by: current_user
       )
     end
 
