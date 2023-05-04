@@ -19,4 +19,14 @@ ActiveAdmin.register(User::Role) do
 
     f.actions
   end
+
+  controller do
+    def create
+      super
+
+      if resource.persisted?
+        resource.update(created_by: current_user)
+      end
+    end
+  end
 end

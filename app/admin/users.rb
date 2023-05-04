@@ -87,4 +87,14 @@ ActiveAdmin.register(User, as: 'all_users') do
     flash[:notice] = 'Usuário ativado com sucesso.'
     redirect_to(admin_all_users_path)
   end
+
+  controller do
+    def create
+      super
+
+      if resource.persisted?
+        resource.update(created_by: current_user)
+      end
+    end
+  end
 end
