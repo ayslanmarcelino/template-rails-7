@@ -38,12 +38,12 @@ RSpec.describe Users::Create, type: :service do
       end
 
       it 'sets the user attributes' do
-        subject.call
-        user = User.last
-        expect(user.email).to eq(params[:email])
-        expect(user.person).to eq(person)
-        expect(user.current_enterprise).to eq(enterprise)
-        expect(user.created_by).to eq(user)
+        created_user = subject.call
+
+        expect(created_user.email).to eq(params[:email])
+        expect(created_user.person).to eq(person)
+        expect(created_user.current_enterprise).to eq(enterprise)
+        expect(created_user.created_by).to eq(user)
       end
 
       it 'updates the person' do
