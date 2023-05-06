@@ -28,7 +28,8 @@ module Users
         password: @params[:email],
         password_confirmation: @params[:email],
         person_id: @person.id,
-        current_enterprise_id: @enterprise.id
+        current_enterprise_id: @enterprise.id,
+        created_by: @enterprise.created_by
       )
       @user.save
     end

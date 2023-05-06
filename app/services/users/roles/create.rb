@@ -30,7 +30,8 @@ module Users
         @role ||= User::Role.create(
           kind_cd: :owner,
           enterprise_id: @enterprise.id,
-          user_id: @user.id
+          user_id: @user.id,
+          created_by: @enterprise.created_by
         )
 
         @role.save
