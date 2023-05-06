@@ -5,11 +5,13 @@ ruby '3.1.0'
 
 gem 'activeadmin'
 gem 'bootsnap', require: false
+gem 'bourbon'
 gem 'cancancan'
 gem 'chartkick'
 gem 'cpf_cnpj'
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'flattened_active_admin'
 gem 'groupdate'
 gem 'jbuilder'
 gem 'jsbundling-rails'

@@ -6,7 +6,8 @@ RSpec.describe Users::Create, type: :service do
 
     let!(:params) { { email: FFaker::Internet.email } }
     let!(:person) { create(:person, :person) }
-    let!(:enterprise) { create(:enterprise) }
+    let!(:user) { create(:user, person: person) }
+    let!(:enterprise) { create(:enterprise, created_by: user) }
 
     context 'when user is found' do
       let!(:user_found) { create(:user, person: person) }
@@ -37,11 +38,12 @@ RSpec.describe Users::Create, type: :service do
       end
 
       it 'sets the user attributes' do
-        subject.call
-        user = User.last
-        expect(user.email).to eq(params[:email])
-        expect(user.person_id).to eq(person.id)
-        expect(user.current_enterprise_id).to eq(enterprise.id)
+        created_user = subject.call
+
+        expect(created_user.email).to eq(params[:email])
+        expect(created_user.person).to eq(person)
+        expect(created_user.current_enterprise).to eq(enterprise)
+        expect(created_user.created_by).to eq(user)
       end
 
       it 'updates the person' do

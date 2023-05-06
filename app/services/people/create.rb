@@ -1,8 +1,9 @@
 module People
   class Create < ApplicationService
-    def initialize(params:, enterprise:)
+    def initialize(params:, enterprise:, kind:)
       @params = params
       @enterprise = enterprise
+      @kind = kind
     end
 
     def call
@@ -24,6 +25,7 @@ module People
         identity_document_issuing_agency: @params[:identity_document_issuing_agency],
         identity_document_number: @params[:identity_document_number],
         identity_document_type: @params[:identity_document_type],
+        kind: @kind,
         enterprise_id: @enterprise.id
       )
 

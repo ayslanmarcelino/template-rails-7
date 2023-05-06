@@ -19,7 +19,7 @@ module Users
       end
 
       def person
-        @person ||= People::Create.call(params: @params, enterprise: @enterprise)
+        @person ||= People::Create.call(params: @params, enterprise: @enterprise, kind: :person)
       end
 
       def user
@@ -30,7 +30,8 @@ module Users
         @role ||= User::Role.create(
           kind_cd: :owner,
           enterprise_id: @enterprise.id,
-          user_id: @user.id
+          user_id: @user.id,
+          created_by: @enterprise.created_by
         )
 
         @role.save

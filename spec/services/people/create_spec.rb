@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe People::Create, type: :service do
-  subject { described_class.new(params: params, enterprise: enterprise) }
+  subject { described_class.new(params: params, enterprise: enterprise, kind: kind) }
 
-  let(:enterprise) { create(:enterprise) }
+  let!(:enterprise) { create(:enterprise) }
+  let!(:kind) { :person }
+
   let(:params) do
     {
       representative_document_number: CPF.generate,
@@ -13,7 +15,8 @@ RSpec.describe People::Create, type: :service do
       telephone_number: FFaker.numerify('##########'),
       identity_document_issuing_agency: 'SSP',
       identity_document_number: FFaker.numerify('#########'),
-      identity_document_type: ['rne', 'rg'].sample
+      identity_document_type: ['rne', 'rg'].sample,
+      kind: kind
     }
   end
 
@@ -37,6 +40,7 @@ RSpec.describe People::Create, type: :service do
         expect(person.identity_document_number).to eq(params[:identity_document_number])
         expect(person.identity_document_type).to eq(params[:identity_document_type])
         expect(person.enterprise).to eq(enterprise)
+        expect(person.kind).to eq(kind)
       end
 
       it 'returns the new person' do

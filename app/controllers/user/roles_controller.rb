@@ -66,6 +66,7 @@ class User::RolesController < ApplicationController
   def role_params
     params.require(:user_role)
           .permit(User::Role.permitted_params)
+          .merge(created_by: current_user)
   end
 
   def enterprise_id

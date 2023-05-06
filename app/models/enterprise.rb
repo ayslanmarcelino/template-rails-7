@@ -20,14 +20,17 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  address_id                       :bigint
+#  created_by_id                    :bigint
 #
 # Indexes
 #
-#  index_enterprises_on_address_id  (address_id)
+#  index_enterprises_on_address_id     (address_id)
+#  index_enterprises_on_created_by_id  (created_by_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
+#  fk_rails_...  (created_by_id => users.id)
 #
 class Enterprise < ApplicationRecord
   IDENTITY_DOCUMENT_TYPES = [
@@ -36,6 +39,7 @@ class Enterprise < ApplicationRecord
   ].freeze
 
   belongs_to :address, optional: true, dependent: :destroy
+  belongs_to :created_by, class_name: 'User', optional: true
 
   validates :document_number, uniqueness: true, if: -> { document_number.present? }
   validates :email,
@@ -48,6 +52,7 @@ class Enterprise < ApplicationRecord
   accepts_nested_attributes_for :address
 
   before_validation :format_document_number
+  before_validation :format_representative_document_number
 
   def self.permitted_params
     [
@@ -77,5 +82,17 @@ class Enterprise < ApplicationRecord
 
     self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '') unless document_number.match?(/\A\d+\z/)
     errors.add(:document_number, 'não é válido') unless CNPJ.valid?(document_number)
+  end
+
+  def format_representative_document_number
+    return if representative_document_number.blank?
+
+    unless representative_document_number.match?(/\A\d+\z/)
+      self.representative_document_number = representative_document_number.gsub!(
+        /[^0-9a-zA-Z]/,
+        ''
+      )
+    end
+    errors.add(:representative_document_number, 'não é válido') unless CPF.valid?(representative_document_number)
   end
 end

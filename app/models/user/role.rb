@@ -6,16 +6,19 @@
 #  kind_cd       :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  created_by_id :bigint
 #  enterprise_id :bigint
 #  user_id       :bigint
 #
 # Indexes
 #
+#  index_user_roles_on_created_by_id  (created_by_id)
 #  index_user_roles_on_enterprise_id  (enterprise_id)
 #  index_user_roles_on_user_id        (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (created_by_id => users.id)
 #  fk_rails_...  (enterprise_id => enterprises.id)
 #  fk_rails_...  (user_id => users.id)
 #
@@ -37,6 +40,7 @@ class User::Role < ApplicationRecord
 
   belongs_to :enterprise
   belongs_to :user
+  belongs_to :created_by, class_name: 'User'
 
   as_enum :kind, KINDS, prefix: true, map: :string
 

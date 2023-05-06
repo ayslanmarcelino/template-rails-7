@@ -1,7 +1,7 @@
 ActiveAdmin.register(User::Role) do
   menu priority: 5
 
-  includes :enterprise
+  includes :enterprise, :created_by, :user
 
   permit_params User::Role.permitted_params
 
@@ -13,10 +13,20 @@ ActiveAdmin.register(User::Role) do
   form do |f|
     f.inputs('Informações gerais') do
       f.input(:enterprise)
-      f.input(:user, as: :select, collection: User.all.map { |user| [user.person.name, user.id] })
+      f.input(:user, as: :select, collection: User.all.map { |user| ["#{user.person.name} | #{user.email}", user.id] })
       f.input(:kind_cd, as: :select, collection: User::Role::ROLES)
     end
 
     f.actions
+  end
+
+  controller do
+    def create
+      super
+
+      if resource.persisted?
+        resource.update(created_by: current_user)
+      end
+    end
   end
 end

@@ -17,6 +17,7 @@ pt-BR:
         identity_document_number: Número do documento de identificação
         identity_document_issuing_agency: Órgão expedidor do documento de identificação
         birth_date: Data de nascimento
+        created_by: Criado por
         created_at: Criado em
         updated_at: Atualizado em
       address:
@@ -68,6 +69,7 @@ pt-BR:
           admin_master: Admin master
           owner: Proprietário
           viewer: Visualizador
+        created_by: Criado por
         created_at: Criado em
         updated_at: Atualizado em
       client:

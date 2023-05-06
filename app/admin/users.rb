@@ -1,5 +1,7 @@
 ActiveAdmin.register(User, as: 'all_users') do
-  menu priority: 3
+  menu priority: 4
+
+  includes :created_by
 
   permit_params User.permitted_params,
                 person_attributes: [
@@ -24,6 +26,7 @@ ActiveAdmin.register(User, as: 'all_users') do
     id_column
     column :email
     column :active
+    column :created_by
     column :created_at
     column :updated_at
     actions
@@ -37,6 +40,7 @@ ActiveAdmin.register(User, as: 'all_users') do
         user.person.enterprise
       end
       row :person
+      row :created_by
       row :created_at
       row :updated_at
     end
@@ -84,5 +88,15 @@ ActiveAdmin.register(User, as: 'all_users') do
     activate!(resource)
     flash[:notice] = 'Usuário ativado com sucesso.'
     redirect_to(admin_all_users_path)
+  end
+
+  controller do
+    def create
+      super
+
+      if resource.persisted?
+        resource.update(created_by: current_user)
+      end
+    end
   end
 end

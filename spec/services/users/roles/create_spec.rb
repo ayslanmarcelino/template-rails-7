@@ -10,7 +10,8 @@ RSpec.describe Users::Roles::Create, type: :service do
       email: FFaker::Internet.email
     }
   end
-  let!(:enterprise) { create(:enterprise) }
+  let!(:user) { create(:user, :with_person) }
+  let!(:enterprise) { create(:enterprise, created_by: user) }
 
   describe '#call' do
     context 'when user does not exists' do

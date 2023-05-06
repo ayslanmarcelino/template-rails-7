@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_040755) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_003506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_040755) do
     t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "created_by_id"
     t.index ["address_id"], name: "index_enterprises_on_address_id"
+    t.index ["created_by_id"], name: "index_enterprises_on_created_by_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -92,6 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_040755) do
     t.string "kind_cd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "created_by_id"
+    t.index ["created_by_id"], name: "index_user_roles_on_created_by_id"
     t.index ["enterprise_id"], name: "index_user_roles_on_enterprise_id"
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
@@ -112,6 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_040755) do
     t.boolean "active", default: true
     t.bigint "person_id"
     t.bigint "current_enterprise_id"
+    t.bigint "created_by_id"
+    t.index ["created_by_id"], name: "index_users_on_created_by_id"
     t.index ["current_enterprise_id"], name: "index_users_on_current_enterprise_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["person_id"], name: "index_users_on_person_id"
@@ -119,10 +125,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_040755) do
   end
 
   add_foreign_key "enterprises", "addresses"
+  add_foreign_key "enterprises", "users", column: "created_by_id"
   add_foreign_key "people", "addresses"
   add_foreign_key "people", "enterprises"
   add_foreign_key "user_roles", "enterprises"
   add_foreign_key "user_roles", "users"
+  add_foreign_key "user_roles", "users", column: "created_by_id"
   add_foreign_key "users", "enterprises", column: "current_enterprise_id"
   add_foreign_key "users", "people"
+  add_foreign_key "users", "users", column: "created_by_id"
 end
