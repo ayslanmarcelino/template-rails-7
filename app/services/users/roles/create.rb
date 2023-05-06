@@ -19,7 +19,7 @@ module Users
       end
 
       def person
-        @person ||= People::Create.call(params: @params, enterprise: @enterprise)
+        @person ||= People::Create.call(params: @params, enterprise: @enterprise, kind: :person)
       end
 
       def user

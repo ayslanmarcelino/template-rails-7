@@ -52,6 +52,7 @@ class Enterprise < ApplicationRecord
   accepts_nested_attributes_for :address
 
   before_validation :format_document_number
+  before_validation :format_representative_document_number
 
   def self.permitted_params
     [
@@ -81,5 +82,17 @@ class Enterprise < ApplicationRecord
 
     self.document_number = document_number.gsub!(/[^0-9a-zA-Z]/, '') unless document_number.match?(/\A\d+\z/)
     errors.add(:document_number, 'não é válido') unless CNPJ.valid?(document_number)
+  end
+
+  def format_representative_document_number
+    return if representative_document_number.blank?
+
+    unless representative_document_number.match?(/\A\d+\z/)
+      self.representative_document_number = representative_document_number.gsub!(
+        /[^0-9a-zA-Z]/,
+        ''
+      )
+    end
+    errors.add(:representative_document_number, 'não é válido') unless CPF.valid?(representative_document_number)
   end
 end

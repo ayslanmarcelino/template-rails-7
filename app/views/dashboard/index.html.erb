@@ -1,4 +1,11 @@
-<%= "Bem-vindo(a), #{current_user.person.name}." %>
-<div>
-  <%= link_to('Gerar PDF exemplo', report_path(format: :pdf)) %>
+<div class="row col-md-12">
+  <div>
+    <h4><%= t('dashboard.components.layout.resource') %> - <%= current_user&.current_enterprise ? current_user.current_enterprise.name : 'Selecione uma unidade' %></h4>
+    <div class="pull-right mb-2 no-print">
+      <%= link_to(report_path(format: :pdf), class: 'btn btn-sm -transparent-standard') do %>
+        <i class="bi bi-filetype-pdf"></i>
+        <%= t('application.generate_pdf') %>
+      <% end %>
+    </div>
+  </div>
 </div>

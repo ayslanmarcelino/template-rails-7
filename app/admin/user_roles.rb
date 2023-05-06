@@ -1,7 +1,7 @@
 ActiveAdmin.register(User::Role) do
   menu priority: 5
 
-  includes :enterprise
+  includes :enterprise, :created_by, :user
 
   permit_params User::Role.permitted_params
 

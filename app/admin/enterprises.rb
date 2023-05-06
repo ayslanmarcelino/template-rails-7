@@ -1,6 +1,8 @@
 ActiveAdmin.register(Enterprise) do
   menu priority: 2
 
+  includes :created_by
+
   permit_params Enterprise.permitted_params,
                 address_attributes: Address.permitted_params
 
