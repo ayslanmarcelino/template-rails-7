@@ -5,6 +5,11 @@
 #  id                               :bigint           not null, primary key
 #  birth_date                       :date
 #  cell_number                      :string
+#  cnh_expires_at                   :date
+#  cnh_issuing_state                :string
+#  cnh_number                       :string
+#  cnh_record                       :string
+#  cnh_type                         :string
 #  document_number                  :string
 #  identity_document_issuing_agency :string
 #  identity_document_number         :string

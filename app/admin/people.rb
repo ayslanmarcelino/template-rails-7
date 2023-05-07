@@ -50,6 +50,11 @@ ActiveAdmin.register(Person) do
       row :identity_document_type
       row :identity_document_number
       row :identity_document_issuing_agency
+      row :cnh_number
+      row :cnh_record
+      row :cnh_type
+      row :cnh_issuing_state
+      row :cnh_expires_at
     end
 
     panel 'Endereço' do
@@ -88,6 +93,11 @@ ActiveAdmin.register(Person) do
       f.input(:identity_document_type, as: :select, collection: Enterprise::IDENTITY_DOCUMENT_TYPES)
       f.input(:identity_document_issuing_agency)
       f.input(:identity_document_number)
+      f.input(:cnh_number)
+      f.input(:cnh_record)
+      f.input(:cnh_type, as: :select, collection: Person::CNH_TYPES.map(&:upcase))
+      f.input(:cnh_issuing_state, as: :select, collection: Address::STATES)
+      f.input(:cnh_expires_at, as: :datepicker)
     end
 
     f.inputs('Endereço', for: [:address, resource.address || resource.build_address]) do |address|

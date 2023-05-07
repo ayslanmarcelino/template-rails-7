@@ -5,6 +5,11 @@
 #  id                               :bigint           not null, primary key
 #  birth_date                       :date
 #  cell_number                      :string
+#  cnh_expires_at                   :date
+#  cnh_issuing_state                :string
+#  cnh_number                       :string
+#  cnh_record                       :string
+#  cnh_type                         :string
 #  document_number                  :string
 #  identity_document_issuing_agency :string
 #  identity_document_number         :string
@@ -51,6 +56,15 @@ class Person < ApplicationRecord
     [I18n.t('activerecord.attributes.person.kind_list.person'), :person]
   ].freeze
 
+  CNH_TYPES = [
+    :a,
+    :b,
+    :ab,
+    :c,
+    :d,
+    :e
+  ].freeze
+
   as_enum :marital_status, [:single, :married, :divorced, :widowed], prefix: true, map: :string
   as_enum :kind, [:company, :person], prefix: true, map: :string
 
@@ -76,6 +90,11 @@ class Person < ApplicationRecord
       :identity_document_issuing_agency,
       :identity_document_number,
       :identity_document_type,
+      :cnh_expires_at,
+      :cnh_issuing_state,
+      :cnh_number,
+      :cnh_record,
+      :cnh_type,
       :marital_status_cd,
       :name,
       :nickname,
