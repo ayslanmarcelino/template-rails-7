@@ -34,7 +34,6 @@ module Admin
 
       if @user.save
         UserMailer.with(user: @user).new_user.deliver_now
-
         redirect_success(path: admin_users_path, action: 'criado')
       else
         render(:new, status: :unprocessable_entity)

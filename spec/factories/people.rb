@@ -24,8 +24,6 @@ FactoryBot.define do
       name { FFaker::Company.name }
       trade_name { FFaker::Company.name }
       document_number { CNPJ.generate }
-      cell_number { FFaker.numerify('###########') }
-      telephone_number { FFaker.numerify('##########') }
       kind { :company }
     end
   end

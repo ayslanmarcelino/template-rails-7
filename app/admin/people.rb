@@ -40,9 +40,13 @@ ActiveAdmin.register(Person) do
       row :kind_cd
     end
 
-    attributes_table(title: 'Contatos') do
-      row :telephone_number
-      row :cell_number
+    panel 'Contatos' do
+      attributes_table_for(resource.contacts) do
+        row :cell_number
+        row :telephone_number
+        row :email
+        row :observation
+      end
     end
 
     attributes_table(title: 'Documentos') do

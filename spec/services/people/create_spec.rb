@@ -11,8 +11,6 @@ RSpec.describe People::Create, type: :service do
       representative_document_number: CPF.generate,
       representative_name: Faker::Name.name,
       birth_date: Date.today - 18.years,
-      cell_number: FFaker.numerify('###########'),
-      telephone_number: FFaker.numerify('##########'),
       identity_document_issuing_agency: 'SSP',
       identity_document_number: FFaker.numerify('#########'),
       identity_document_type: ['rne', 'rg'].sample,
@@ -34,8 +32,6 @@ RSpec.describe People::Create, type: :service do
         expect(person.document_number).to eq(params[:representative_document_number])
         expect(person.name).to eq(params[:representative_name])
         expect(person.birth_date).to eq(params[:birth_date])
-        expect(person.cell_number).to eq(params[:cell_number])
-        expect(person.telephone_number).to eq(params[:telephone_number])
         expect(person.identity_document_issuing_agency).to eq(params[:identity_document_issuing_agency])
         expect(person.identity_document_number).to eq(params[:identity_document_number])
         expect(person.identity_document_type).to eq(params[:identity_document_type])

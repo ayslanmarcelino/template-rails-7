@@ -20,8 +20,6 @@ module People
         document_number: @params[:representative_document_number],
         name: @params[:representative_name],
         birth_date: @params[:birth_date],
-        cell_number: @params[:cell_number],
-        telephone_number: @params[:telephone_number],
         identity_document_issuing_agency: @params[:identity_document_issuing_agency],
         identity_document_number: @params[:identity_document_number],
         identity_document_type: @params[:identity_document_type],
