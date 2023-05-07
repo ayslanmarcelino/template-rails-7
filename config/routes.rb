@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
 
-  root "dashboard#index"
+  root "profiles#select"
   devise_for :users
 
+  get '/select_profile', to: 'profiles#select'
   get 'dashboard/index'
   get 'report', to: 'dashboard#pdf'
+
+  resources :profiles, only: :select
 
   resources :enterprises, only: [:index, :show, :new, :create, :edit, :update] do
     member do
