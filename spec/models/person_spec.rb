@@ -49,6 +49,48 @@ RSpec.describe Person, type: :model do
   let!(:enterprise) { create(:enterprise) }
   let!(:kind) { :person }
 
+  describe 'associations' do
+    it { is_expected.to belong_to(:enterprise) }
+    it { is_expected.to belong_to(:address).optional }
+    it { is_expected.to belong_to(:owner).optional }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_uniqueness_of(:document_number).scoped_to(:owner_type, :enterprise_id).case_insensitive }
+    it { is_expected.to validate_presence_of(:document_number) }
+    it { is_expected.to validate_presence_of(:name) }
+  end
+
+  describe 'methods' do
+    describe '#format_document_number' do
+      context 'when document_number is blank' do
+        let!(:document_number) {}
+
+        it 'does not modify document_number' do
+          model = build(:enterprise, document_number: document_number)
+          expect { model.valid? }.not_to change { model.document_number }
+        end
+      end
+
+      context 'when document_number is not blank' do
+        let!(:document_number) { CPF.generate(true) }
+        let!(:stripped_document_number) { CPF.new(document_number).stripped }
+
+        it 'removes non-alphanumeric characters from document_number' do
+          model = build(:enterprise, document_number: document_number)
+          model.valid?
+          expect(model.document_number).to eq(stripped_document_number)
+        end
+
+        it 'adds errors to document_number if it is not a valid CPF' do
+          model = build(:enterprise, document_number: '12345678000191')
+          expect(model.valid?).to eq(false)
+          expect(model.errors[:document_number]).to include('não é válido')
+        end
+      end
+    end
+  end
+
   context 'when sucessful' do
     context 'when has person with same document_number' do
       let!(:person) { create(:person, kind, document_number: document_number) }
