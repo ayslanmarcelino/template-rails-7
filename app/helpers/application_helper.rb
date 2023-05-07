@@ -46,7 +46,7 @@ module ApplicationHelper
   end
 
   def current_role_kind
-    current_user.roles.find_by(enterprise: current_user.current_enterprise).kind
+    current_user.roles.find_by(enterprise: current_user.current_enterprise)&.kind
   end
 
   def can_access_admin?

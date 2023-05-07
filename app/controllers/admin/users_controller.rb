@@ -70,9 +70,14 @@ module Admin
     end
 
     def update_current_enterprise
-      current_user.update(current_enterprise_id: params[:change_enterprise][:id])
+      if current_user.roles.map(&:enterprise_id).include?(params[:change_enterprise][:id].to_i)
+        current_user.update(current_enterprise_id: params[:change_enterprise][:id])
+        flash[:success] = "Agora você está acessando a empresa #{current_user.current_enterprise.trade_name}."
+      else
+        flash[:alert] = 'Você não possui permissão'
+      end
+
       redirect_to(dashboard_index_path)
-      flash[:success] = "Agora você está acessando a empresa #{current_user.current_enterprise.trade_name}."
     end
 
     private

@@ -51,6 +51,77 @@ RSpec.describe Enterprise, type: :model do
   let(:representative_name) { FFaker::NameBR.name }
   let(:representative_document_number) { CPF.generate }
 
+  describe 'associations' do
+    it { is_expected.to belong_to(:address).optional }
+    it { is_expected.to belong_to(:created_by).class_name('User').optional }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:document_number) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:representative_name) }
+    it { is_expected.to validate_presence_of(:representative_document_number) }
+  end
+
+  describe 'methods' do
+    describe '#format_document_number' do
+      context 'when document_number is blank' do
+        let!(:document_number) {}
+
+        it 'does not modify document_number' do
+          model = build(:enterprise, document_number: document_number)
+          expect { model.valid? }.not_to change { model.document_number }
+        end
+      end
+
+      context 'when document_number is not blank' do
+        let!(:document_number) { CNPJ.generate(true) }
+        let!(:stripped_document_number) { CNPJ.new(document_number).stripped }
+
+        it 'removes non-alphanumeric characters from document_number' do
+          model = build(:enterprise, document_number: document_number)
+          model.valid?
+          expect(model.document_number).to eq(stripped_document_number)
+        end
+
+        it 'adds errors to document_number if it is not a valid CNPJ' do
+          model = build(:enterprise, document_number: '12345678000191')
+          expect(model.valid?).to eq(false)
+          expect(model.errors[:document_number]).to include('não é válido')
+        end
+      end
+    end
+
+    describe '#format_representative_document_number' do
+      context 'when representative_document_number is blank' do
+        let!(:representative_document_number) {}
+
+        it 'does not modify representative_document_number' do
+          model = build(:enterprise, representative_document_number: document_number)
+          expect { model.valid? }.not_to change { model.representative_document_number }
+        end
+      end
+
+      context 'when representative_document_number is not blank' do
+        let!(:representative_document_number) { CPF.generate(true) }
+        let!(:stripped_representative_document_number) { CPF.new(representative_document_number).stripped }
+
+        it 'removes non-alphanumeric characters from representative_document_number' do
+          model = build(:enterprise, representative_document_number: representative_document_number)
+          model.valid?
+          expect(model.representative_document_number).to eq(stripped_representative_document_number)
+        end
+
+        it 'adds errors to representative_document_number if it is not a valid CPF' do
+          model = build(:enterprise, representative_document_number: '11122233345')
+          expect(model.valid?).to eq(false)
+          expect(model.errors[:representative_document_number]).to include('não é válido')
+        end
+      end
+    end
+  end
+
   context 'when sucessful' do
     context 'when valid params' do
       it do
@@ -60,57 +131,26 @@ RSpec.describe Enterprise, type: :model do
   end
 
   context 'when unsucessful' do
+    context 'when do not pass a required attribute' do
+      [:email, :document_number, :name, :representative_name, :representative_document_number].each do |attribute|
+        context "when #{attribute}" do
+          let!(attribute) {}
+          let!(:message) { "#{I18n.t("activerecord.attributes.enterprise.#{attribute}")} não pode ficar em branco" }
+
+          it do
+            expect(subject).not_to be_valid
+            expect(subject.errors.full_messages.to_sentence).to eq(message)
+          end
+        end
+      end
+    end
+
     context 'when has enterprise with existing document_number' do
       let!(:enterprise) { create(:enterprise, document_number: document_number) }
 
       it do
         expect(subject).not_to be_valid
         expect(subject.errors.full_messages.to_sentence).to eq('CNPJ já está em uso')
-      end
-    end
-
-    context 'when dont pass a email' do
-      let(:email) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('E-mail não pode ficar em branco')
-      end
-    end
-
-    context 'when dont pass a document_number' do
-      let(:document_number) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('CNPJ não pode ficar em branco')
-      end
-    end
-
-    context 'when dont pass a name' do
-      let(:name) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('Razão Social não pode ficar em branco')
-      end
-    end
-
-    context 'when dont pass a representative_name' do
-      let(:representative_name) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('Nome completo não pode ficar em branco')
-      end
-    end
-
-    context 'when dont pass a representative_document_number' do
-      let(:representative_document_number) {}
-
-      it do
-        expect(subject).not_to be_valid
-        expect(subject.errors.full_messages.to_sentence).to eq('CPF não pode ficar em branco')
       end
     end
   end

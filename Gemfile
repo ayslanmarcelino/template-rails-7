@@ -3,8 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.0'
 
-gem 'activeadmin'
 gem 'aasm'
+gem 'activeadmin'
 gem 'bootsnap', require: false
 gem 'bourbon'
 gem 'cancancan'
