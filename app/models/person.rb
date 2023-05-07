@@ -4,7 +4,6 @@
 #
 #  id                               :bigint           not null, primary key
 #  birth_date                       :date
-#  cell_number                      :string
 #  cnh_expires_at                   :date
 #  cnh_issuing_state                :string
 #  cnh_number                       :string
@@ -19,7 +18,6 @@
 #  name                             :string
 #  nickname                         :string
 #  owner_type                       :string
-#  telephone_number                 :string
 #  trade_name                       :string
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
@@ -73,11 +71,13 @@ class Person < ApplicationRecord
   belongs_to :owner, polymorphic: true, optional: true
 
   has_one :user
+  has_many :contacts, inverse_of: :person
 
   validates :document_number, uniqueness: { scope: [:owner_type, :enterprise_id] }, if: -> { document_number.present? }
   validates :document_number, :name, presence: true
 
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :contacts, reject_if: :all_blank, allow_destroy: true
 
   before_validation :format_document_number
 

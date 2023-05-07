@@ -4,7 +4,6 @@
 #
 #  id                               :bigint           not null, primary key
 #  birth_date                       :date
-#  cell_number                      :string
 #  cnh_expires_at                   :date
 #  cnh_issuing_state                :string
 #  cnh_number                       :string
@@ -19,7 +18,6 @@
 #  name                             :string
 #  nickname                         :string
 #  owner_type                       :string
-#  telephone_number                 :string
 #  trade_name                       :string
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
@@ -60,6 +58,7 @@ RSpec.describe Person, type: :model do
     it { is_expected.to validate_presence_of(:document_number) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to have_one(:user) }
+    it { is_expected.to have_many(:contacts) }
   end
 
   describe 'methods' do

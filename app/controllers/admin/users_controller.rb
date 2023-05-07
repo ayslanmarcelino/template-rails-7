@@ -88,7 +88,8 @@ module Admin
               User.permitted_params,
               person_attributes: [
                 Person.permitted_params,
-                { address_attributes: Address.permitted_params }
+                { address_attributes: Address.permitted_params },
+                { contacts_attributes: Contact.permitted_params }
               ]
             )
     end
