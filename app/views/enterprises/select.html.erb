@@ -10,8 +10,12 @@
           ) do
         %>
           <div class="profile">
-            <%= I18n.t(current_user.roles.where(enterprise: enterprise).map(&:kind), scope: 'activerecord.attributes.user/role.kinds').join(' / ') %>
-            <div class="mt-2">
+            <div>
+              <b>
+                <%= I18n.t(current_user.roles.where(enterprise: enterprise).map(&:kind), scope: 'activerecord.attributes.user/role.kinds').join(' / ') %>
+              </b>
+            </div>
+            <div class="mt-5">
               <%= enterprise.trade_name %>
             </div>
             <div>
