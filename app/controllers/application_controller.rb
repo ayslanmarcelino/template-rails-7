@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied(exception)
-    redirect_to(root_path)
+    redirect_to(dashboard_index_path)
     flash[:danger] = exception.message
   end
 

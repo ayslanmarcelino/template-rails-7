@@ -71,7 +71,7 @@ module Admin
 
     def update_current_enterprise
       current_user.update(current_enterprise_id: params[:change_enterprise][:id])
-      redirect_to(root_path)
+      redirect_to(dashboard_index_path)
       flash[:success] = "Agora você está acessando a empresa #{current_user.current_enterprise.trade_name}."
     end
 

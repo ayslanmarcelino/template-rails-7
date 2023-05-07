@@ -52,6 +52,7 @@ class User::Role < ApplicationRecord
       :id,
       :kind_cd,
       :user_id,
+      :created_by_id,
       :enterprise_id
     ]
   end

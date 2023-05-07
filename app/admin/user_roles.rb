@@ -22,11 +22,9 @@ ActiveAdmin.register(User::Role) do
 
   controller do
     def create
-      super
+      params[:user_role].merge!(created_by_id: current_user.id)
 
-      if resource.persisted?
-        resource.update(created_by: current_user)
-      end
+      super
     end
   end
 end
