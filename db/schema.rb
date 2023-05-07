@@ -41,6 +41,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_003506) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "cell_number"
+    t.string "telephone_number"
+    t.string "email"
+    t.string "description"
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_contacts_on_owner"
+  end
+
   create_table "enterprises", force: :cascade do |t|
     t.string "email"
     t.string "document_number"
