@@ -34,6 +34,17 @@ module ApplicationHelper
     ['new', 'create'].include?(action_name)
   end
 
+  def users_collection
+    users = []
+    query = User.includes(:person).where(person: { enterprise: current_user.current_enterprise })
+
+    query.each do |user|
+      users << ["#{user.person.name} | #{user.email}", user.id]
+    end
+
+    users.sort
+  end
+
   def current_role_kind
     current_user.roles.find_by(enterprise: current_user.current_enterprise).kind
   end
