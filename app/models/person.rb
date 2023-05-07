@@ -76,7 +76,6 @@ class Person < ApplicationRecord
 
   validates :document_number, uniqueness: { scope: [:owner_type, :enterprise_id] }, if: -> { document_number.present? }
   validates :document_number, :name, presence: true
-  validates :cnh_expires_at, comparison: { greater_than_or_equal_to: Date.current }
 
   accepts_nested_attributes_for :address
 
