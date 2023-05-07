@@ -11,8 +11,6 @@ pt-BR:
         opening_date: Data de abertura da empresa
         representative_name: Nome completo
         representative_document_number: CPF
-        telephone_number: Telefone
-        cell_number: Celular
         identity_document_type: Tipo do documento de identificação
         identity_document_number: Número do documento de identificação
         identity_document_issuing_agency: Órgão expedidor do documento de identificação
@@ -84,3 +82,8 @@ pt-BR:
         enterprise: Empresa
         created_at: Criado em
         updated_at: Atualizado em
+      contact:
+        telephone_number: Telefone
+        cell_number: Celular
+        email: E-mail
+        observation: Observações

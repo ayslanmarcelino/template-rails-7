@@ -21,13 +21,16 @@
   <%= person_form.label(:marital_status_cd) %>
   <%= person_form.select(:marital_status_cd, Person::MARITAL_STATUSES, { include_blank: 'Selecione um tipo' }, { class: 'form-control' }) %>
 </div>
-<div class="col-lg-4">
-  <%= person_form.label(:telephone_number) %>
-  <%= person_form.text_field(:telephone_number, class: 'form-control input-telephone-number') %>
-</div>
-<div class="col-lg-4">
-  <%= person_form.label(:cell_number) %>
-  <%= person_form.text_field(:cell_number, class: 'form-control input-cell-number') %>
+<h4 class="mt-3">
+  Contatos
+</h4>
+<div>
+  <%= person_form.fields_for :contacts do |contact| %>
+    <%= render partial: 'contact_fields', locals: { f: contact } %>
+  <% end %>
+  <div>
+    <%= link_to_add_association('Adicionar', person_form, :contacts, class: 'btn btn-sm -transparent-standard col-lg-12 ') %>
+  </div>
 </div>
 <h4 class="mt-3">
   Documentos
