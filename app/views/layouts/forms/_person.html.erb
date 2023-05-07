@@ -25,11 +25,28 @@
   Contatos
 </h4>
 <div>
-  <%= person_form.fields_for :contacts do |contact| %>
-    <%= render partial: 'contact_fields', locals: { f: contact } %>
+  <%= link_to('#', data: { toggle: "modal", target: "#createContact" }, class: 'btn btn-sm -transparent-standard col-lg-12') do %>
+    Adicionar
   <% end %>
-  <div>
-    <%= link_to_add_association('Adicionar', person_form, :contacts, class: 'btn btn-sm -transparent-standard col-lg-12 ') %>
+  <div class="modal fade" id="createContact" tabindex="-1" role="dialog" aria-labelledby="createContactLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header g-0 row">
+          <h5 class="modal-title">Contatos</h5>
+        </div>
+        <div class="modal-body">
+          <%= person_form.fields_for :contacts do |contact| %>
+            <%= render partial: 'contact_fields', locals: { f: contact } %>
+          <% end %>
+          <div class="d-inline-flex col-lg-12">
+            <%= link_to_add_association('Adicionar', person_form, :contacts, class: 'btn btn-sm -transparent-standard col-lg-6') %>
+            <button type="button" class="close btn btn-sm -transparent-success col-lg-6" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">Finalizar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <h4 class="mt-3">
