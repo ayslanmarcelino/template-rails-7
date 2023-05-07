@@ -22,7 +22,7 @@ ActiveAdmin.register(User::Role) do
 
   controller do
     def create
-      params[:user_role].merge!(created_by_id: current_user.id)
+      params[:user_role][:created_by_id] = current_user.id
 
       super
     end
