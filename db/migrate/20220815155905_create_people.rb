@@ -10,6 +10,11 @@ class CreatePeople < ActiveRecord::Migration[7.0]
       t.string :identity_document_type
       t.string :identity_document_number
       t.string :identity_document_issuing_agency
+      t.string :cnh_issuing_state
+      t.string :cnh_number
+      t.string :cnh_record
+      t.string :cnh_type
+      t.date :cnh_expires_at
       t.string :marital_status_cd
       t.string :kind_cd
       t.date :birth_date

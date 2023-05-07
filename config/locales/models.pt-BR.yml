@@ -56,6 +56,11 @@ pt-BR:
         identity_document_issuing_agency: Órgão expedidor
         identity_document_number: Documento de identificação
         identity_document_type: Tipo de documento de identificação
+        cnh_expires_at: Data de vencimento
+        cnh_record: Registro CNH
+        cnh_number: Número CNH
+        cnh_type: Categoria CNH
+        cnh_issuing_state: Estado expedidor CNH
         created_at: Criado em
         updated_at: Atualizado em
       user/role:

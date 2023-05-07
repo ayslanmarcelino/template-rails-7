@@ -12,6 +12,11 @@ FactoryBot.define do
       identity_document_type { ['rne', 'rg'].sample }
       identity_document_number { FFaker.numerify('#########') }
       identity_document_issuing_agency { 'SSP' }
+      cnh_issuing_state { FFaker::AddressBR.state_abbr }
+      cnh_number       { Faker::Number.number(digits: 10) }
+      cnh_record       { Faker::Number.number(digits: 11) }
+      cnh_type         { 'B' }
+      cnh_expires_at   { Time.zone.today + 2.years }
       marital_status { :single }
       birth_date { Date.today - 18.years }
       kind { :person }
