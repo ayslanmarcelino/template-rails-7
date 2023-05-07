@@ -66,7 +66,7 @@ pt-BR:
         enterprise: Empresa
         user: Usuário
         kinds:
-          admin_master: Admin master
+          admin_master: Admininistrador master
           owner: Proprietário
           viewer: Visualizador
         created_by: Criado por

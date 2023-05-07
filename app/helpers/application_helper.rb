@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def enterprises
-    @enterprises ||= current_user.roles.map(&:enterprise)
+    @enterprises ||= current_user.roles.includes(:enterprise).map(&:enterprise)
   end
 
   def abbreviation(word)

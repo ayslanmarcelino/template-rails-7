@@ -24,8 +24,10 @@
   </head>
 
   <body>
-    <% if current_user %>
+    <% if current_user && request.path != root_path %>
       <%= render partial: 'layouts/components/application' %>
+    <% elsif request.path == root_path %>
+      <%= render partial: 'layouts/components/select_enterprise' %>
     <% else %>
       <%= yield %>
     <% end %>
