@@ -4,9 +4,9 @@ class CreateContacts < ActiveRecord::Migration[7.0]
       t.string :cell_number
       t.string :telephone_number
       t.string :email
-      t.string :description
+      t.string :observation
 
-      t.belongs_to :owner, polymorphic: true, optional: true
+      t.belongs_to :person, foreign_key: true
 
       t.timestamps
     end

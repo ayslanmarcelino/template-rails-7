@@ -5,8 +5,6 @@ class CreatePeople < ActiveRecord::Migration[7.0]
       t.string :trade_name
       t.string :nickname
       t.string :document_number
-      t.string :cell_number
-      t.string :telephone_number
       t.string :identity_document_type
       t.string :identity_document_number
       t.string :identity_document_issuing_agency

@@ -45,12 +45,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_003506) do
     t.string "cell_number"
     t.string "telephone_number"
     t.string "email"
-    t.string "description"
-    t.string "owner_type"
-    t.bigint "owner_id"
+    t.string "observation"
+    t.bigint "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_type", "owner_id"], name: "index_contacts_on_owner"
+    t.index ["person_id"], name: "index_contacts_on_person_id"
   end
 
   create_table "enterprises", force: :cascade do |t|
@@ -81,8 +80,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_003506) do
     t.string "trade_name"
     t.string "nickname"
     t.string "document_number"
-    t.string "cell_number"
-    t.string "telephone_number"
     t.string "identity_document_type"
     t.string "identity_document_number"
     t.string "identity_document_issuing_agency"
@@ -141,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_003506) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "contacts", "people"
   add_foreign_key "enterprises", "addresses"
   add_foreign_key "enterprises", "users", column: "created_by_id"
   add_foreign_key "people", "addresses"
