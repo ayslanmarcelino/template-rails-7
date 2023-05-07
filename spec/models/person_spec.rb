@@ -59,6 +59,7 @@ RSpec.describe Person, type: :model do
     it { is_expected.to validate_uniqueness_of(:document_number).scoped_to(:owner_type, :enterprise_id).case_insensitive }
     it { is_expected.to validate_presence_of(:document_number) }
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to have_one(:user) }
   end
 
   describe 'methods' do

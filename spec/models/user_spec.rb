@@ -53,6 +53,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to belong_to(:person).optional }
     it { is_expected.to belong_to(:current_enterprise).class_name('Enterprise').optional }
     it { is_expected.to belong_to(:created_by).class_name('User').optional }
+    it { is_expected.to have_many(:roles) }
   end
 
   context 'when sucessful' do
