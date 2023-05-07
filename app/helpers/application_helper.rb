@@ -33,4 +33,14 @@ module ApplicationHelper
   def not_persisted_action?
     ['new', 'create'].include?(action_name)
   end
+
+  def current_role_kind
+    current_user.roles.find_by(enterprise: current_user.current_enterprise).kind
+  end
+
+  def can_access_admin?
+    return unless current_user.present? && current_user.current_enterprise.present?
+
+    User::Role::ADMIN_KINDS.include?(current_role_kind)
+  end
 end
