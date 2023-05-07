@@ -27,22 +27,22 @@
   color: #333;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   margin: 10px;
-}
-
-.profile:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-}
-
-.profile img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-
-.profile h2 {
-  font-size: 24px;
-  margin: 0;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin: 0;
+  }
 }
