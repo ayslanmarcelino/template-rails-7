@@ -8,5 +8,6 @@ import '../../lib/assets/javascripts/fill_address';
 import '../../lib/assets/javascripts/required_fields';
 import '../../lib/assets/javascripts/validate_document_number/person';
 import 'chartkick/chart.js'
+import '@nathanvda/cocoon'
 
 window.Swal = Swal;

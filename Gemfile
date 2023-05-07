@@ -9,6 +9,7 @@ gem 'bootsnap', require: false
 gem 'bourbon'
 gem 'cancancan'
 gem 'chartkick'
+gem 'cocoon'
 gem 'cpf_cnpj'
 gem 'cssbundling-rails'
 gem 'devise'
